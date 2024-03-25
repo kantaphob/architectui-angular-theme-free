@@ -21,6 +21,7 @@ export class HeaderComponent {
   getData(){
     this.httpClient.get('http://localhost:8080/api/getData').subscribe(res => {
       this.data = res;
+      console.log(res);
     });
   }
 
