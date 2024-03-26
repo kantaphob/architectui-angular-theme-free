@@ -21,21 +21,24 @@ export class RegularComponent implements OnInit {
   icon = "pe-7s-drawer icon-gradient bg-happy-itmeo";
 
   countrise: any = {};
+content: any;
 
   constructor(private httpClient: HttpClient, private modalService: NgbModal) {
     this.getData();
   }
 
-  ngOnInit() {}
-
-  getData() {
+    getData() {
     this.httpClient.get("http://localhost:8080/api/getdata").subscribe(
-      (data: any) => {
-        this.countrise = data;
-        console.log(data);
+      (res: any) => {
+
+        //res
+        this.countrise = res;
+        console.log(res);
       }
     );
   }
+
+  ngOnInit() {}
 
   save() {
     let country = {

@@ -1,6 +1,43 @@
+<ng-template #content let-modal style="z-index:1000;">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic">จัดการ country</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
+  </div>
+</ng-template>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        name
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              name
+              <input class="form-control" [formControl]="name" type="text"/>
+            </div>
+      
+            <div class="mb-3">
+              area
+              <input class="form-control" [formControl]="area" type="number"/>
+            </div>
+      
+            <div class="mb-3">
+              population
+              <input class="form-control" [formControl]="population" type="number"/>
+            </div>
+      
+            <div class="mb-3">
+              flag
+              <input class="form-control" [formControl]="flag" type="text"/>
+            </div>
+          </form>
+      </div>
 <div class="card main-card mb-3">
   <div class="card-header">
     Basic
+    <button type="button" (click)="open(content,null,null,null,null,null)" class="btn-shadow d-inline-flex align-item-center btn btn-success">
+      <i aria-hidden="true" class="pe-7s-plus btn-icon-wrapper"></i>
+      create New Country
+    </button>
   </div>
   <table class="table table-striped">
     <thead>
@@ -9,18 +46,41 @@
       <th scope="col">Country</th>
       <th scope="col">Area</th>
       <th scope="col">Population</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let country of countrise; index as i">
       <th scope="row">{{ i + 1 }}</th>
       <td>
-        <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="me-2"
-             style="width: 20px">
-        {{ country.name }}
+        <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="me-2" 
+        style="width: 20px">
+        {{country.countryName}}
       </td>
       <td>{{ country.area | number }}</td>
       <td>{{ country.population | number }}</td>
+      <td>
+        <button type="button" (click)="open(content,
+        country.name,
+        country.area,
+        country.population,
+        country.flag,
+        country.countryId)" 
+        class="btn-shadow btn btn-info">
+        <i aria-hidden="true" title="edit" class="pe-7s-pen btn-icon-wrapper"></i>
+      </button>
+      </td>
+      <td>
+        <button type="button" (click)="deleteCountry(country.countryId)" class="btn-shadow btn btn-danger">
+        <i aria-hidden="true" title="delete" class="pe-7s-trash btn-icon-wrapper"></i>
+      </button>
+      </td>
+      <td>
+        <button type="button" (click)="delete(country.countryId)" class="btn-shadow btn btn-danger">
+          <i aria-hidden="true" title="delete" class="pe-7s-trash btn-icon-wrapper"></i>
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>
